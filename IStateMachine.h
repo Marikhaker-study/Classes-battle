@@ -7,22 +7,25 @@ using namespace sf;
 
 typedef std::shared_ptr<IState> StateRef;
 
-class IStateMachine : public IState
+class IStateMachine
 {
 protected:
 	std::stack<StateRef> m_states;
 	StateRef m_newState;
-	bool m_isRemoving, m_isAdding, m_isReplacing;
+	bool m_isRemoving = 0, m_isAdding = 0, m_isReplacing = 0;
 public:
 
-	virtual void Init() override {};
-	virtual ~IStateMachine() {}
+	//IStateMachine() {}
+
+	virtual ~IStateMachine() {};
 
 	//push front
 	virtual void AddState(StateRef&, bool = true) = 0;
 
 	//pop front
 	virtual void RemoveState() = 0;
+
+	virtual void Update() = 0;
 
 	virtual void ProcessStateChanges() = 0;
 

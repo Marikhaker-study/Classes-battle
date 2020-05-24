@@ -11,12 +11,12 @@ class Game
 {
 private:
 
-	std::shared_ptr<GameWindow> G_window; // Game window instance
-	std::shared_ptr< StartState > m_startstate;
+	std::shared_ptr<IWindow> G_window; // Game window instance
+	std::shared_ptr< IState > m_startstate;
 	Event event;
 	// IoC container
 	std::shared_ptr< Hypodermic::Container > m_container;
-	std::shared_ptr< StateMachine > m_states;
+	std::shared_ptr< IStateMachine > m_states;
 
 public:
 

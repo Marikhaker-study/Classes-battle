@@ -7,7 +7,7 @@ Game::Game()
 {
 	ioc_container_configurate();
 
-	m_states = m_container->resolve<StateMachine>();
+	G_window = m_container->resolve<IWindow>();
 
 	G_window->configurate(900, 900, "Classes battle");
 
@@ -20,7 +20,7 @@ Game::Game()
 	
 	instanceOfBWithStaticTypeA->Draw();*/
 
-	run();
+	//run();
 }
 
 void Game::ioc_container_configurate()
@@ -30,10 +30,10 @@ void Game::ioc_container_configurate()
 	// Registering dependencies
 	builder.registerType< StateMachine >().as< IStateMachine >();
 	builder.registerType< StartState >().as< IState >();
+    builder.registerType< GameWindow >().as< IWindow >();
+	//G_window = std::make_shared< GameWindow >();
 
-	G_window = std::make_shared< GameWindow >();
-
-	builder.registerInstance(G_window);
+	//builder.registerInstance(G_window);
 
 	m_container = builder.build();
 }
@@ -53,6 +53,7 @@ void Game::render()
 
 void Game::update()
 {
+	
 	G_window->get_GameWindow()->clear(Color(250, 220, 100, 0));
 
 	while (G_window->get_GameWindow()->pollEvent(event))
@@ -70,10 +71,11 @@ void Game::update()
 
 void Game::run()
 {
-	//auto states = m_container->resolve<StateMachine>();
-	auto mm_startstate = m_container->resolve<IState>();
-	StateRef staterete;
-	m_states->AddState(mm_startstate);
+	m_states = m_container->resolve<IStateMachine>();
+
+	m_startstate = m_container->resolve<IState>();
+
+	m_states->AddState(m_startstate);
 	
 	while (G_window->get_GameWindow()->isOpen() )
 	{

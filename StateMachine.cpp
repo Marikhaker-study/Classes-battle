@@ -1,7 +1,5 @@
 #include "StateMachine.h"
 
-
-
 StateMachine::StateMachine()
 {
 }
@@ -10,10 +8,9 @@ void StateMachine::AddState(StateRef &newState, bool isReplacing)
 {
 	m_isAdding = true;
 	m_isReplacing = isReplacing;
-
 	//processing ref of parameter to member
 	//m_newState = std::move(newState); // old version for unique_ptr
-	m_newState = std::make_shared(newState);
+	m_newState = std::move(newState);
 } 
 
 void StateMachine::RemoveState()
@@ -29,7 +26,7 @@ void StateMachine::ProcessStateChanges()
 
 		if (!m_states.empty())
 		{
-			m_states.top()->Resume();
+			//m_states.top()->Resume();
 		}
 		m_isRemoving = false;
 	}
@@ -45,11 +42,12 @@ void StateMachine::ProcessStateChanges()
 			else
 			{
 				// Pause prev state if adding new
-				m_states.top()->Pause();
+				//m_states.top()->Pause();
 			}
 		}
 
-		m_states.push(std::move(m_newState));
+		// push input state
+		m_states.push(m_newState);
 		m_states.top()->Init();
 		m_isAdding = false;
 	}
@@ -57,6 +55,8 @@ void StateMachine::ProcessStateChanges()
 
 void StateMachine::Update()
 {
+	ProcessStateChanges();
+
 	m_states.top()->Update();
 }
 
@@ -70,6 +70,7 @@ bool StateMachine::isEmpty()
 	if (m_states.empty()) return true;
 	else return false;
 }
+
 
 StateMachine::~StateMachine()
 {

@@ -5,7 +5,7 @@ using namespace sf;
 
 #include "IStateMachine.h"
 
-typedef std::shared_ptr<IState> StateRef;
+//typedef std::shared_ptr<IState> StateRef;
 
 class StateMachine : public IStateMachine
 {
@@ -28,5 +28,10 @@ public:
 
 	virtual bool isEmpty() override;
 
+
+
+	
 };
+
+
 

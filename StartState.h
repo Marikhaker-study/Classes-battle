@@ -3,14 +3,17 @@
 class StartState : public IState
 {
 public:
+
 	StartState();
+
 	virtual void Init() override;
 	//virtual void HandleInput() = 0;
 	virtual void Update() override;
+	virtual void Render() override;
 	//virtual void Render(float dt) = 0;
 
-	virtual void Pause() {}
-	virtual void Resume() {}
+	//virtual void Pause() {}
+	//virtual void Resume() {}
 	virtual ~StartState();
 };
 

@@ -16,6 +16,12 @@ void StartState::Update()
 
 }
 
+
+void StartState::Render()
+{
+
+}
+
 StartState::~StartState()
 {
 }

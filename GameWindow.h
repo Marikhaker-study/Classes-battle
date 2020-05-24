@@ -1,7 +1,5 @@
 #pragma once
-#include "libraries.h"
 #include "IWindow.h"
-using namespace sf;
 
 class GameWindow: public IWindow
 {
@@ -11,7 +9,7 @@ public:
 
 	GameWindow();
 
-	std::shared_ptr<RenderWindow> &GameWindow::get_GameWindow();
+	std::shared_ptr<RenderWindow> &GameWindow::get_GameWindow() override;
 
 	void configurate(int width, int height, char *name) override;
 

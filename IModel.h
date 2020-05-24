@@ -7,8 +7,7 @@ class IModel
 private:
 
 public:
-	IModel();
 
-	virtual ~IModel();
+	virtual ~IModel() {}
 };
 
