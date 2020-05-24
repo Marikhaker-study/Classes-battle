@@ -10,7 +10,8 @@ using namespace sf;
 class StateMachine : public IStateMachine
 {
 private:
-	
+	int game_state = 0;
+
 public:
 	StateMachine();
 	virtual ~StateMachine();
@@ -20,16 +21,13 @@ public:
 	//pop front
 	virtual void RemoveState() override;
 
-	virtual void Update() override;
+	virtual int Update(std::shared_ptr<RenderWindow> &window, Event &event) override;
 
-	virtual void ProcessStateChanges() override;
+	virtual void ProcessStateChanges(std::shared_ptr<RenderWindow> &window) override;
 
 	virtual StateRef &get_ActiveState() override;
 
 	virtual bool isEmpty() override;
-
-
-
 	
 };
 

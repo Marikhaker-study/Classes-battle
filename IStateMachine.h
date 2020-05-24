@@ -1,9 +1,6 @@
 #pragma once
-
-#include "libraries.h"
-using namespace sf;
-
 #include "IState.h"
+#include "IWindow.h"
 
 typedef std::shared_ptr<IState> StateRef;
 
@@ -25,9 +22,9 @@ public:
 	//pop front
 	virtual void RemoveState() = 0;
 
-	virtual void Update() = 0;
+	virtual int Update(std::shared_ptr<RenderWindow> &window, Event &event) = 0;
 
-	virtual void ProcessStateChanges() = 0;
+	virtual void ProcessStateChanges(std::shared_ptr<RenderWindow> &window) = 0;
 
 	virtual StateRef &get_ActiveState() = 0;
 

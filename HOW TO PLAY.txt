@@ -1,0 +1,11 @@
+HOW TO PLAY
+
+Classes battle
+
+1) Use wasd key buttons to move
+2) Use Escape to exit
+
+P.S. You can move to the other side of the map 
+	like in the snake game//
+
+Good luck, champ.

@@ -8,8 +8,10 @@ void StateMachine::AddState(StateRef &newState, bool isReplacing)
 {
 	m_isAdding = true;
 	m_isReplacing = isReplacing;
-	//processing ref of parameter to member
+
 	//m_newState = std::move(newState); // old version for unique_ptr
+
+	//processing ref of parameter to member
 	m_newState = std::move(newState);
 } 
 
@@ -18,7 +20,7 @@ void StateMachine::RemoveState()
 	m_isRemoving = true;
 }
 
-void StateMachine::ProcessStateChanges()
+void StateMachine::ProcessStateChanges(std::shared_ptr<RenderWindow> &window)
 {
 	if (m_isRemoving && !m_states.empty())
 	{
@@ -48,17 +50,33 @@ void StateMachine::ProcessStateChanges()
 
 		// push input state
 		m_states.push(m_newState);
-		m_states.top()->Init();
+		m_states.top()->Init(window);
 		m_isAdding = false;
 	}
+	
 }
 
-void StateMachine::Update()
+// 0 start state; 1 started; 2 main state; 3 win; 4 lose;
+int StateMachine::Update(std::shared_ptr<RenderWindow> &window, Event &event)
 {
-	ProcessStateChanges();
+	ProcessStateChanges(window);
 
-	m_states.top()->Update();
+	if (game_state == 0)
+	{
+		game_state = m_states.top()->Update(window, event);
+		return 0;
+	}
+	else if (game_state == 1)
+	{
+		game_state = 2;
+		return 1;
+	}
+
+	return 2;
+	
 }
+
+//void StateMachine::StateControls
 
 StateRef &StateMachine::get_ActiveState()
 {

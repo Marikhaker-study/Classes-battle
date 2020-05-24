@@ -9,7 +9,7 @@ public:
 
 	GameWindow();
 
-	std::shared_ptr<RenderWindow> &GameWindow::get_GameWindow() override;
+	std::shared_ptr<RenderWindow> &GameWindow::get_window() override;
 
 	void configurate(int width, int height, char *name) override;
 

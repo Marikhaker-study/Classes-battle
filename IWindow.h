@@ -4,11 +4,11 @@ using namespace sf;
 
 class IWindow
 {
-private:
+protected:
 
 public:
 
-	virtual std::shared_ptr<RenderWindow> &get_GameWindow() = 0;
+	virtual std::shared_ptr<RenderWindow> &get_window() = 0;
 
 	virtual void configurate(int width, int height, char *name) = 0;
 
